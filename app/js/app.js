@@ -85,30 +85,36 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
         switch(Math.floor(Math.random() * 4)) {
             case 0:
                 console.log("Addition");
-                // Evaluate correct and incorrect values
+                // Calculate correct and incorrect values
                 expressionValues = [a + b, a + b + (Math.floor(Math.random() * 11) - 5)];
-                displayedExpression = a + " + " + b + " = " + expressionValues[(Math.floor(Math.random() * 2))];
-                console.log(displayedExpression);
+                // Will be evaluating expressionValuesIndex against $scope.response for user scoring
+                expressionValuesIndex = Math.floor(Math.random() * 2);
+                // Displayed expression is randomized between correct and incorrect values
+                displayedExpression = a + " + " + b + " = " + expressionValues[expressionValuesIndex];
+                console.log(displayedExpression) // + " -----> " + expressionValuesIndex);
                 break;
             case 1:
                 console.log("Subtraction");
                 // Evaluate correct and incorrect values
                 expressionValues = [a - b, a - b + (Math.floor(Math.random() * 11) - 5)];
-                displayedExpression = a + " - " + b + " = " + expressionValues[(Math.floor(Math.random() * 2))];
+                expressionValuesIndex = Math.floor(Math.random() * 2);
+                displayedExpression = a + " - " + b + " = " + expressionValues[expressionValuesIndex];
                 console.log(displayedExpression);
                 break;
             case 2:
                 console.log("Multiplication");
                 // Evaluate correct and incorrect values
                 expressionValues = [a * b, a * b + (Math.floor(Math.random() * 11) - 5)];
-                displayedExpression = a + " * " + b + " = " + expressionValues[(Math.floor(Math.random() * 2))];
+                expressionValuesIndex = Math.floor(Math.random() * 2);
+                displayedExpression = a + " * " + b + " = " + expressionValues[expressionValuesIndex];
                 console.log(displayedExpression);
                 break;
             case 3:
                 console.log("Remainder");
                 // Evaluate correct and incorrect values
                 expressionValues = [a % b, a % b + (Math.floor(Math.random() * 11) - 5)];
-                displayedExpression = a + " % " + b + " = " + expressionValues[(Math.floor(Math.random() * 2))];
+                expressionValuesIndex = Math.floor(Math.random() * 2);
+                displayedExpression = a + " % " + b + " = " + expressionValues[expressionValuesIndex];
                 console.log(displayedExpression);
                 break;
             default:
