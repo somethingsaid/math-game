@@ -46,4 +46,70 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
         };
         $scope.timeLeft = timeLeft;
     }
+
+    // Math
+    var difficulty = [
+        {
+            a: 10, b: 10 // Level 0
+        },
+        {
+            a: 10, b: 15 // Level 1
+        },
+        {
+            a: 10, b: 20 // Level 2
+        },
+        {
+            a: 10, b: 50 // Level 3
+        },
+        {
+            a: 10, b: 100 // Level 4
+        },
+        {
+            a: 20, b: 20 // Level 5
+        },
+        {
+            a: 50, b: 300 // Level 6
+        }
+    ];
+
+    var createExpression = function() {
+        // Set Difficulty
+        var difficultySetting = Math.floor(Math.random() * 7); 
+        var a = Math.floor(Math.random() * difficulty[difficultySetting].a) + 1;
+        var b = Math.floor(Math.random() * difficulty[difficultySetting].b) + 1;
+
+        // Randomly choose between + - * /
+        switch(Math.floor(Math.random() * 4)) {
+            case 0:
+                console.log("Addition");
+                expressionTrueVal = a + b;
+                expressionFalseVal = a + b + (Math.floor(Math.random() * 11) - 5);
+                console.log(a + " + " + b + " = " + expressionTrueVal);
+                console.log(a + " + " + b + " = " + expressionFalseVal);
+                break;
+            case 1:
+                console.log("Subtraction");
+                expressionTrueVal = a - b;
+                expressionFalseVal = a - b + (Math.floor(Math.random() * 11) - 5);
+                console.log(a + " - " + b + " = " + expressionTrueVal);
+                console.log(a + " - " + b + " = " + expressionFalseVal);
+                break;
+            case 2:
+                console.log("Multiplication");
+                expressionTrueVal = a * b;
+                expressionFalseVal = a * b + (Math.floor(Math.random() * 11) - 5);
+                console.log(a + " * " + b + " = " + expressionTrueVal);
+                console.log(a + " * " + b + " = " + expressionFalseVal);
+                break;
+            case 3:
+                console.log("Division");
+                expressionTrueVal = Math.floor(a / b);
+                expressionFalseVal = Math.floor(a / b) + (Math.floor(Math.random() * 11) - 5);
+                console.log(a + " / " + b + " = " + expressionTrueVal);
+                console.log(a + " / " + b + " = " + expressionFalseVal);
+                break;
+            default:
+                console.log("Default text");
+        }
+    };
 }]);
