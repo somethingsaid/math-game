@@ -8,7 +8,9 @@
 <body ng-controller="GameCtrl">
     <div>
         Time remaining: {{ timeLeft }} s
-        <button ng-click="addTime()">Add 1 second</button>
+        <button ng-click="startTime()">Start clock</button>
+        <button ng-click="addTime()">Add time</button>
+        <button ng-click="zeroTime()">Stop and zero clock</button>
         <button ng-click="resetTime()">Reset clock</button>
     </div>
 </body>
