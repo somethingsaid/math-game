@@ -23,6 +23,7 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
     // Start timer
     $scope.startTime =  function() {
         timer = $timeout($scope.countdown, downInterval);
+        createExpression(); // start game and initialize first question
     };
 
     // Add time
@@ -119,6 +120,24 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
                 break;
             default:
                 console.log("Default text");
+        }
+    };
+
+    // User Response
+    $scope.response = function(response) {
+        if (response === expressionValuesIndex) {
+            console.log("Correct! Gain some time."); // Gain is 3 seconds?
+            $scope.timeLeft += 3;
+            createExpression();
+        }
+        else if (response !== expressionValuesIndex) {
+            console.log("Incorrect! Lose some time."); // Loss is 2 seconds?
+            $scope.timeLeft -= 2;
+            createExpression();
+        }
+        else {
+            console.log("Something unexpected happened: ");
+            console.log("User response: " + typeof(response) + " ; Expression Value Index: " + expressionValuesIndex);
         }
     };
 }]);
