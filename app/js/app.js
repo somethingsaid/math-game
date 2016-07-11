@@ -6,6 +6,7 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
     var downInterval = 1000;
     var upInterval = [2, 1];
     var timer;
+    var gameEnd = true;
     $scope.timeLeft = timeLeft;
 
     // Decrement every 1000 milliseconds
@@ -16,13 +17,17 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
         }
         else {
             console.log("Time's up!");
-            runOut = true;
+            console.log("Correct / Attempts: " + $scope.numCorrect + " / " + $scope.numQuestions);
+            gameEnd = true;
         }
     };
 
     // Start timer
     $scope.startTime =  function() {
+        gameEnd = false;
         timer = $timeout($scope.countdown, downInterval);
+        $scope.numQuestions = 0;
+        $scope.numCorrect = 0;
         createExpression(); // start game and initialize first question
     };
 
@@ -36,15 +41,13 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
 
     // Stop time
     $scope.zeroTime = function() {
+        gameEnd = true;
         $timeout.cancel(timer);
         $scope.timeLeft = 0;
     };
 
     //  Reset
     $scope.resetTime = function() {
-        if ($scope.timeLeft === 0) {
-            timer = $timeout($scope.countdown, downInterval);
-        };
         $scope.timeLeft = timeLeft;
     }
 
@@ -121,19 +124,25 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
             default:
                 console.log("Default text");
         }
+        $scope.numQuestions++;
     };
 
     // User Response
     $scope.response = function(response) {
         if (response === expressionValuesIndex) {
-            console.log("Correct! Gain some time."); // Gain is 3 seconds?
-            $scope.timeLeft += 3;
-            createExpression();
+            if (gameEnd === false) {
+                console.log("Correct! Gain some time."); // Gain is 1 seconds?
+                $scope.timeLeft += 1;
+                $scope.numCorrect++;
+                createExpression();
+            };
         }
         else if (response !== expressionValuesIndex) {
-            console.log("Incorrect! Lose some time."); // Loss is 2 seconds?
-            $scope.timeLeft -= 2;
-            createExpression();
+            if (gameEnd === false) {
+                console.log("Incorrect! Lose some time."); // Loss is 2 seconds?
+                $scope.timeLeft -= 2;
+                createExpression();
+            };
         }
         else {
             console.log("Something unexpected happened: ");
