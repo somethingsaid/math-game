@@ -94,32 +94,32 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
                 // Will be evaluating expressionValuesIndex against $scope.response for user scoring
                 expressionValuesIndex = Math.floor(Math.random() * 2);
                 // Displayed expression is randomized between correct and incorrect values
-                displayedExpression = a + " + " + b + " = " + expressionValues[expressionValuesIndex];
-                console.log(displayedExpression) // + " -----> " + expressionValuesIndex);
+                $scope.displayedExpression = a + " + " + b + " = " + expressionValues[expressionValuesIndex];
+                console.log($scope.displayedExpression) // + " -----> " + expressionValuesIndex);
                 break;
             case 1:
                 console.log("Subtraction");
                 // Evaluate correct and incorrect values
                 expressionValues = [a - b, a - b + (Math.floor(Math.random() * 11) - 5)];
                 expressionValuesIndex = Math.floor(Math.random() * 2);
-                displayedExpression = a + " - " + b + " = " + expressionValues[expressionValuesIndex];
-                console.log(displayedExpression);
+                $scope.displayedExpression = a + " - " + b + " = " + expressionValues[expressionValuesIndex];
+                console.log($scope.displayedExpression);
                 break;
             case 2:
                 console.log("Multiplication");
                 // Evaluate correct and incorrect values
                 expressionValues = [a * b, a * b + (Math.floor(Math.random() * 11) - 5)];
                 expressionValuesIndex = Math.floor(Math.random() * 2);
-                displayedExpression = a + " * " + b + " = " + expressionValues[expressionValuesIndex];
-                console.log(displayedExpression);
+                $scope.displayedExpression = a + " * " + b + " = " + expressionValues[expressionValuesIndex];
+                console.log($scope.displayedExpression);
                 break;
             case 3:
                 console.log("Remainder");
                 // Evaluate correct and incorrect values
                 expressionValues = [a % b, a % b + (Math.floor(Math.random() * 11) - 5)];
                 expressionValuesIndex = Math.floor(Math.random() * 2);
-                displayedExpression = a + " % " + b + " = " + expressionValues[expressionValuesIndex];
-                console.log(displayedExpression);
+                $scope.displayedExpression = a + " % " + b + " = " + expressionValues[expressionValuesIndex];
+                console.log($scope.displayedExpression);
                 break;
             default:
                 console.log("Default text");
@@ -131,6 +131,7 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
     $scope.response = function(response) {
         if (response === expressionValuesIndex) {
             if (gameEnd === false) {
+                $scope.feedback = "Correct! Gain some time.";
                 console.log("Correct! Gain some time."); // Gain is 1 seconds?
                 $scope.timeLeft += 1;
                 $scope.numCorrect++;
@@ -139,6 +140,7 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
         }
         else if (response !== expressionValuesIndex) {
             if (gameEnd === false) {
+                $scope.feedback = "Incorrect! Lose some time.";
                 console.log("Incorrect! Lose some time."); // Loss is 2 seconds?
                 $scope.timeLeft -= 2;
                 createExpression();

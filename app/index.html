@@ -13,7 +13,8 @@
         <button ng-click="zeroTime()">Stop and zero clock</button>
         <button ng-click="resetTime()">Reset clock</button>
     </section>
-    <section class="expression">
+    <section class="expression" ng-class="{gameEnd: gameEnd}">
+        {{ displayedExpression }}
     </section>
     <section class="response">
         <button ng-click="response(0)">Yes</button>
