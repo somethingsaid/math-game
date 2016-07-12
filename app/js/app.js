@@ -16,6 +16,7 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
             timer = $timeout($scope.countdown, downInterval);
         }
         else {
+            $scope.feedback = "Time's up!";
             console.log("Time's up!");
             console.log("Correct / Attempts: " + $scope.numCorrect + " / " + $scope.numQuestions);
             gameEnd = true;
@@ -114,17 +115,23 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
                 console.log($scope.displayedExpression);
                 break;
             case 3:
-                console.log("Remainder");
+            // Division, look for numbers that are actual factors to avoid decimals etc.
+                console.log("Division");
+                while ((a % b) !== 0) {
+                    a = Math.floor(Math.random() * difficulty[difficultySetting].a) + 1;
+                    b = Math.floor(Math.random() * difficulty[difficultySetting].b) + 1;
+                };
                 // Evaluate correct and incorrect values
-                expressionValues = [a % b, a % b + (Math.floor(Math.random() * 11) - 5)];
+                expressionValues = [a / b, a / b + (Math.floor(Math.random() * 11) - 5)];
                 expressionValuesIndex = Math.floor(Math.random() * 2);
-                $scope.displayedExpression = a + " % " + b + " = " + expressionValues[expressionValuesIndex];
+                $scope.displayedExpression = a + " / " + b + " = " + expressionValues[expressionValuesIndex];
                 console.log($scope.displayedExpression);
                 break;
             default:
                 console.log("Default text");
         }
         $scope.numQuestions++;
+        $scope.showFeedback = false;
     };
 
     // User Response
@@ -132,6 +139,7 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
         if (response === expressionValuesIndex) {
             if (gameEnd === false) {
                 $scope.feedback = "Correct! Gain some time.";
+                $scope.showFeedback = true;
                 console.log("Correct! Gain some time."); // Gain is 1 seconds?
                 $scope.timeLeft += 1;
                 $scope.numCorrect++;
@@ -141,6 +149,7 @@ myApp.controller('GameCtrl', ['$scope', '$timeout', function($scope, $timeout) {
         else if (response !== expressionValuesIndex) {
             if (gameEnd === false) {
                 $scope.feedback = "Incorrect! Lose some time.";
+                $scope.showFeedback = true;
                 console.log("Incorrect! Lose some time."); // Loss is 2 seconds?
                 $scope.timeLeft -= 2;
                 createExpression();

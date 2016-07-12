@@ -19,6 +19,9 @@
     <section class="response">
         <button ng-click="response(0)">Yes</button>
         <button ng-click="response(1)">No</button>
+        <div ng-class="{feedback: showFeedback}">
+            {{ feedback }}
+        </div>
     </section>
 </body>
 <script type="text/javascript" src="./bower_components/angular/angular.js"></script>

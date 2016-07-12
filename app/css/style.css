@@ -1,3 +1,22 @@
 .game-end {
 	display: none;
 }
+
+.feedback {
+	-webkit-animation: animationsFade 0.5s forward;
+	animation: animationsFade 0.5s forward;
+}
+
+@-webkit-keyframes animationsFade {
+    0%  {opacity: 1.0;}
+    25% {opacity: 0.5;}
+    75% {opacity: 0.25;}
+    100% {opacity: 0;}
+}
+
+@-keyframes animationsFade {
+    0%  {opacity: 1.0;}
+    25% {opacity: 0.5;}
+    75% {opacity: 0.25;}
+    100% {opacity: 0;}
+}
